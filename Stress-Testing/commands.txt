@@ -1,0 +1,7 @@
+Put the normal solution in A.cpp, brute force one in brute.cpp and write generator code
+Run the following commands
+
+g++ A.cpp -o A
+g++ brute.cpp -o brute
+g++ gen.cpp -o gen
+bash s.sh

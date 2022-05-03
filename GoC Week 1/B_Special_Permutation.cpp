@@ -1,0 +1,58 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define int long long int
+#define vi vector<int>
+#define pii pair<int,int>
+#define vii vector<pii>
+#define rep(i,a,b) for(int i=a; i<b; i++)
+bool sortbysec(const pair<int,int> &a, const pair<int,int> &b){                //to sort vii by second element use sort(v.begin(), v.end(), sortbysec);
+    return (a.second < b.second);
+}
+#define MOD 1000000007
+
+
+void solve(){
+    int n, a, b;
+    cin>>n>>a>>b;
+    vector<int> v;
+    v.push_back(a);
+    for(int i=n; i>0; i--){
+        if(i==a || i==b){
+            continue;
+        }
+        v.push_back(i);
+    }
+    v.push_back(b);
+    int ans=INT_MAX;
+    for(int i=0; i<n/2; i++){
+        ans=min(ans, v[i]);
+    }
+    if(ans!=a){
+        cout<<"-1"<<endl;
+        return;
+    }
+    ans=INT_MIN;
+    for(int i=n/2; i<n; i++){
+        ans=max(ans, v[i]);
+    }
+    if(ans!=b){
+        cout<<"-1"<<endl;
+        return;
+    }
+    for(int i=0; i<n; i++){
+        cout<<v[i]<<" ";
+    }
+    cout<<endl;
+    return;
+}
+
+
+signed main(){
+    ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
+    int t=1;
+    cin>>t;
+    while (t--){
+        solve();       
+    }
+    return 0;
+}
