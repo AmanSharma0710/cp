@@ -3,6 +3,9 @@
         "queue": "cpp",
         "vector": "cpp",
         "xstring": "cpp",
-        "iostream": "cpp"
-    }
+        "iostream": "cpp",
+        "ostream": "cpp",
+        "xiosbase": "cpp"
+    },
+    "cph.general.onceMaintainerMessage": false
 }
