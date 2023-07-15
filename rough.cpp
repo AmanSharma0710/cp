@@ -1,36 +1,81 @@
 #include<bits/stdc++.h>
 using namespace std;
-
-int main(){
-    int t;
-    cin>>t;
-    while(t--){
-        int n;
-        cin>>n;
-        vector<long long int> v(n);
-        for(auto &i:v){
-            cin>>i;
-        }
-        vector<int> v1;
-        for(int i=0; i<33; i++){
-            int count = 0;
-            for(int j=0; j<n; j++){
-                if(v[j]&(1ll<<i)){
-                    count++;
-                }
-            }
-            v1.push_back(count);
-        }
-        int gcd = v1[0];
-        for(int i=0; i<33; i++){
-            gcd = __gcd(gcd, v1[i]);
-        }
-        int factors = 0;
-        for(int i=1; i<=gcd; i++){
-            if(gcd%i==0){
-                factors++;
-            }
-        }
-        cout<<factors<<endl;
+#define int long long int
+#define vi vector<int>
+#define pii pair<int,int>
+#define vii vector<pii>
+#define rep(i,a,b) for(int i=a; i<b; i++)
+bool sortbysec(const pair<int,int> &a, const pair<int,int> &b){                //to sort vii by second element use sort(v.begin(), v.end(), sortbysec);
+    return (a.second < b.second);
+}
+#define MOD 1000000007
+int power(int x, int y, int p){
+    int res = 1; 
+    x = x % p;  
+    while (y > 0){
+        if (y & 1)
+            res = (res*x) % p;
+        y = y>>1;
+        x = (x*x) % p;
     }
+    return res;
+}
+unsigned mod_pow(unsigned a, unsigned b, unsigned mod) {
+    unsigned result = 1;
+    while (b > 0) {
+        if (b & 1)
+            result = unsigned(uint64_t(result) * a % mod);
+        a = unsigned(uint64_t(a) * a % mod);
+        b >>= 1;
+    }
+    return result;
+}
+
+bool isPrime(unsigned n) {
+    if (n < 2)
+        return false;
+    for (unsigned p : {2, 3, 5, 7, 11, 13, 17, 19, 23, 29})
+        if (n % p == 0)
+            return n == p;
+    int r = __builtin_ctz(n - 1);
+    unsigned d = (n - 1) >> r;
+    for (unsigned a : {2, 7, 61}) {
+        unsigned x = mod_pow(a % n, d, n);
+        if (x <= 1 || x == n - 1)
+            continue;
+        for (int i = 0; i < r - 1 && x != n - 1; i++)
+            x = unsigned(uint64_t(x) * x % n);
+        if (x != n - 1)
+            return false;
+    }
+    return true;
+}
+
+
+
+void solve(){
+    int n, a, b;
+    cin >> n >> a >> b;
+    int x = 0;
+    for(int i=0; i<n; i++){
+        int v1 = (a^x)*(b^x);
+        x ^= (1ll<<i);
+        int v2 = (a^x)*(b^x);
+        if(v1 > v2){
+            x ^= (1ll<<i);
+        }
+    }
+    cout << x << endl;
+    return;
+}
+
+
+signed main(){
+    ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
+    int t=1;
+    cin>>t;
+    while (t--){
+        solve();       
+    }
+    return 0;
 }
